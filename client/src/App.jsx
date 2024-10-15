@@ -1,13 +1,13 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { AuthProvider } from "./context/AuthContext.jsx";
+//import { AuthProvider } from "./context/AuthContext.jsx";
 
-import RegisterPage from './pages/RegisterPage.jsx';
-import LoginPage from "./pages/loginPage.jsx";
+//import RegisterPage from './pages/RegisterPage.jsx';
+//import LoginPage from "./pages/loginPage.jsx";
 import TasksPage from "./pages/TasksPage.jsx";
 import TaskFormPage from "./pages/TaskFormPager.jsx";
 import HomePage from "./pages/HomePage.jsx";
 import ProfilePage from "./pages/ProfilePage.jsx";
-import ProtectedRoute from "./ProtectedRoute.jsx";
+//import ProtectedRoute from "./ProtectedRoute.jsx";
 import { TaskProvider } from "./context/TaskContext.jsx";
 import Navbar from "./components/Navbar.jsx";
 

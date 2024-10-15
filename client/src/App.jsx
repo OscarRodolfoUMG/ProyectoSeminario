@@ -21,8 +21,8 @@ function App() {
             <Routes>
               {/* Usuarios Publicos */}
               <Route path="/" element={<HomePage />} />
-              <Route path="/login" element={<LoginPage />} />
-              <Route path="/register" element={<RegisterPage />} />
+              {/* <Route path="/login" element={<LoginPage />} /> */}
+              {/* <Route path="/register" element={<RegisterPage />} /> */}
 
               <Route path="/tasks" element={<TasksPage />} />
               <Route path="/add-task" element={<TaskFormPage />} />

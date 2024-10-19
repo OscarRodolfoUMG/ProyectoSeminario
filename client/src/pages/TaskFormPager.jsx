@@ -10,7 +10,7 @@ dayjs.extend(utc);
 function TaskFormPage() {
     const { register, handleSubmit, setValue } = useForm();
     const { createTask, getTask, updateTask } = useTasks();
-    console.log(createTask());
+   
     const navigate = useNavigate();
     const params = useParams();
 
@@ -68,4 +68,4 @@ function TaskFormPage() {
         </div>
     )
 }
-export default TaskFormPage
+export default TaskFormPage;

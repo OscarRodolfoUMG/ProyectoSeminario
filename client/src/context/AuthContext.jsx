@@ -2,6 +2,7 @@ import { createContext, useState, useContext, useEffect } from "react";
 import { registerRequest, loginRequest, verifyTokenRequest } from '../api/auth';
 import Cookies from "js-cookie";
 
+//Contexto para las Autorizaciones del Login
 export const AuthContext = createContext();
 
 export const useAuth = () => {
@@ -18,6 +19,7 @@ export const AuthProvider = ({ children }) => {
     const [errors, setErrors] = useState([]);
     const [loading, setLoading] = useState(true);
 
+    //Crea un usuario mediante una peticion
     const signup = async (user) => {
         try {
             const res = await registerRequest(user);
@@ -28,11 +30,10 @@ export const AuthProvider = ({ children }) => {
             setErrors(error.response.data)
         }
     };
-
+    //Realiza la peticion de inicio de sesion
     const signin = async (user) => {
         try {
             const res = await loginRequest(user);
-            console.log(res);
             setIsAuthenticated(true);
             setUser(res.data);
         } catch (error) {
@@ -42,7 +43,7 @@ export const AuthProvider = ({ children }) => {
             setErrors([error.response.data.message])
         }
     };
-
+    //Cierra la sesion
     const logout = () => {
         Cookies.remove("token");
         setIsAuthenticated(false);
@@ -53,11 +54,12 @@ export const AuthProvider = ({ children }) => {
         if (errors.length > 0) {
             const timer = setTimeout(() => {
                 setErrors([])
-            }, 5000);
+            }, 10000);
             return () => clearTimeout(timer)
         }
     }, [errors])
 
+    //Verifica si esta activo un token de inicio de sesion
     useEffect(() => {
         async function checkLogin() {
             const cookies = Cookies.get();

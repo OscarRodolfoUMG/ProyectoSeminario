@@ -1,67 +1,150 @@
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 
+//Componente de Navegacion para la pagina de inicio y navegacion de usuarios
 function Navbar() {
 
-    //const { isAuthenticated, logout, user } = useAuth();
+    const { logout, user, isAuthenticated } = useAuth();
+    const location = useLocation();
+
     return (
-        <nav className="bg-zinc-700 w-36 h-screen px-0 py-5">
-            <ul className="flex flex-col gap-y-4">
-                <li className="self-center text-2xl font-bold py-5">
-                    SGPCC
-                </li>
-                <li className="self-center ">
-                    <Link className="text-white py-2 px-12 hover:bg-black" to='/'>Inicio</Link>
-                </li>
-                <li className="self-center flex-1 mr-2">
-                    <Link className="text-white py-2 px-12 hover:bg-black" to='/tasks'>Tareas</Link>
-                </li>
-                <li className="self-center flex-1 mr-2">
-                    <Link className="text-white hover:bg-black py-2 px-6" to='/add-task'>Nueva Tarea</Link>
-                </li>
-                
-            </ul>
-        </nav>
+        <> 
+            {isAuthenticated ? ( //Nav cuando  ha ingresado al sistema
+                <nav className="fixed bg-zinc-700 w-36 h-screen px-0 py-5 flex flex-col justify-between">
+                    <ul className="flex flex-col gap-y-4">
+                        <li className="self-center text-3xl font-bold py-5">
+                            SGPCC
+                        </li>
+                        {/* Acciones del usuario Administrador */}
+                        {user.fk_tipo_usuario === 1 && (
+                            <>
+                                <div className="mt-auto w-full">
+                                    <li className="self-center flex-1 mr-2 w-full">
+                                        <Link className="text-white py-4 hover:bg-black w-full h-full block text-center" to='/users'>
+                                            Usuarios
+                                        </Link>
+                                    </li>
+                                </div>
+                                <div className="mt-auto w-full">
+                                    <li className="self-center flex-1 mr-2 w-full">
+                                        <Link className="text-white py-4 hover:bg-black w-full h-full block text-center" to='/informes'>
+                                            Informes
+                                        </Link>
+                                    </li>
+                                </div>
+                            </>
+                        )}
+                        {/* Acciones del usuario Gerente de Proyecto */}
+                        {user.fk_tipo_usuario === 2 && (
+                            <>
+                                <div className="mt-auto w-full">
+                                    <li className="self-center flex-1 mr-2 w-full">
+                                        <Link className="text-white py-4 hover:bg-black w-full h-full block text-center" to='/proyects'>
+                                            Proyectos
+                                        </Link>
+                                    </li>
+                                </div>
+                                <div className="mt-auto w-full">
+                                    <li className="self-center flex-1 mr-2 w-full">
+                                        <Link className="text-white py-4 hover:bg-black w-full h-full block text-center" to='/asignaciones'>
+                                            Asignaciones
+                                        </Link>
+                                    </li>
+                                </div>
+                                <div className="mt-auto w-full">
+                                    <li className="self-center flex-1 mr-2 w-full">
+                                        <Link className="text-white py-4 hover:bg-black w-full h-full block text-center" to='/tasks'>
+                                            Tareas
+                                        </Link>
+                                    </li>
+                                </div>
+                                <div className="mt-auto w-full">
+                                    <li className="self-center flex-1 mr-2 w-full">
+                                        <Link className="text-white py-4 hover:bg-black w-full h-full block text-center" to='/informes'>
+                                            Informes
+                                        </Link>
+                                    </li>
+                                </div>
+                            </>
+                        )}
+                        {/* Acciones del usuario Gerente de Proyecto */}
+                        {user.fk_tipo_usuario === 3 && (
+                            <>
+                                <div className="mt-auto w-full">
+                                    <li className="self-center flex-1 mr-2 w-full">
+                                        <Link className="text-white py-4 hover:bg-black w-full h-full block text-center" to='/planPrueba'>
+                                            Plan Pruebas
+                                        </Link>
+                                    </li>
+                                </div>
+                                <div className="mt-auto w-full">
+                                    <li className="self-center flex-1 mr-2 w-full">
+                                        <Link className="text-white py-4 hover:bg-black w-full h-full block text-center" to='/prueba'>
+                                            Pruebas
+                                        </Link>
+                                    </li>
+                                </div>
+                                <div className="mt-auto w-full">
+                                    <li className="self-center flex-1 mr-2 w-full">
+                                        <Link className="text-white py-4 hover:bg-black w-full h-full block text-center" to='/falla'>
+                                            Defectos
+                                        </Link>
+                                    </li>
+                                </div>
+                            </>
+                        )}
+                        {/* Acciones del usuario Desarrollador*/}
+                        {user.fk_tipo_usuario === 4 && (
+                            <>
+                                <div className="mt-auto w-full">
+                                    <li className="self-center flex-1 mr-2 w-full">
+                                        <Link className="text-white py-4 hover:bg-black w-full h-full block text-center" to='/tasks'>
+                                            Tareas
+                                        </Link>
+                                    </li>
+
+                                </div>
+                            </>
+                        )}
+                    </ul>
+                    <div className="mt-auto w-full">
+                        <Link
+                            className="bg-red-600 hover:bg-red-300 text-white w-full h-full block py-4 text-center"
+                            to='/'
+                            onClick={() => { logout() }}
+                        >
+                            Cerrar
+                        </Link>
+                    </div>
+
+                </nav>
+            ) : ( //Navegador en el sitio de Inicio
+                <div className="fixed w-full">
+                    <nav className="bg-zinc-700 w-full h-16 px-4 py-2 flex justify-between items-center">
+                        <ul className="flex gap-x-4">
+                            <li className="text-3xl font-bold text-white">
+                                SGPCC
+                            </li>
+                        </ul>
+                        <div>
+                            {location.pathname === '/login' && (
+                                <Link className="text-white mr-4 py-2 px-10  border-2 border-blue-500 rounded-lg hover:bg-blue-500 hover:text-white transition duration-300" to='/'>
+                                    Inicio
+                                </Link>
+
+                            )}
+                            {location.pathname === '/' && (
+                                <Link className="text-white mr-4 py-2 px-10 border-2 bg-blue-500 border-blue-500 rounded-lg hover:bg-zinc-700 transition duration-300" to='/login'>
+                                    Iniciar Sesión
+                                </Link>
+                            )}
+                        </div>
+                    </nav>
+                </div>
+            )}
+        </>
     )
 }
 
 export default Navbar;
 
-
-
-
-// import { Link } from "react-router-dom";
-// import { useAuth } from "../context/AuthContext";
-
-// function Navbar() {
-
-//     //const { isAuthenticated, logout, user } = useAuth();
-//     return (
-//         <nav className="bg-zinc-700 my-3 flex justify-between py-5 px-10 rounded-lg">
-
-//             <ul className="flex gap-x-2">
-//                 <li>
-//                     <Link>Welcome </Link>
-//                 </li>
-//                 <li>
-//                     <Link className="bg-indigo-500 px-4 py-4 rounded-sm"
-//                         to='/add-task'>Add Task</Link>
-//                 </li>
-//                 <li>
-//                     <Link to='/' onClick={() => { }}>Log Out</Link>
-//                 </li>
-//                 <li>
-//                     <Link className="bg-indigo-500 px-4 py-4 rounded-sm"
-//                         to='/login'>Login</Link>
-//                 </li>
-//                 <li>
-//                     <Link className="bg-indigo-500 px-4 py-4 rounded-sm"
-//                         to='/register'>Register</Link>
-//                 </li>
-//             </ul>
-//         </nav>
-//     )
-// }
-
-
-// export default Navbar;

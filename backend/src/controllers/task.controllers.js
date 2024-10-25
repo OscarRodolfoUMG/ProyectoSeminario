@@ -32,24 +32,39 @@ export const getTask = async (req, res) => {
 
 export const createTask = async (req, res) => {
     try {
-        const { title, description } = req.body;
-        const newTask = await pool.query(`Insert into ${nTabla} (title, description) VALUES ($1, $2) RETURNING *`, [title, description]);
+        let { nombre, descripcion, fecha_inicio, fecha_final, fecha_completado, fk_id_tipo_tarea, fk_id_estado, fk_id_prioridad, fk_id_proyecto, fk_id_responsable, fk_id_supervisor } = req.body;
+        
+        fecha_inicio = fecha_inicio === '' ? null : fecha_inicio;
+        fecha_final = fecha_final === '' ? null : fecha_final;
+        fecha_completado = fecha_completado === '' ? null : fecha_completado;
 
-        res.json(newTask.rows[0]);
+        const newTask = await pool.query(
+            `INSERT INTO ${nTabla} (nombre, descripcion, fecha_inicio, fecha_final, fecha_completado, fk_id_tipo_tarea, fk_id_estado, fk_id_prioridad, fk_id_proyecto, fk_id_responsable, fk_id_supervisor) 
+            VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11) RETURNING *`,
+            [nombre, descripcion, fecha_inicio, fecha_final, fecha_completado, fk_id_tipo_tarea, fk_id_estado, fk_id_prioridad, fk_id_proyecto, fk_id_responsable, fk_id_supervisor]
+        );
+
+        return res.status(200).json({ message: "Tarea Agregada"});
     } catch (error) {
-        console.log(error)
-        return res.status(500).json({ message: "Something went wrong: "});
+        console.log(error);
+        return res.status(500).json({ message: "Something went wrong" });
     }
 };
 
 export const updateTask = async (req, res) => {
     try {
         const { id } = req.params;
-        const { title, description } = req.body;
+        let { nombre, descripcion, fecha_inicio, fecha_final, fecha_completado, fk_id_tipo_tarea, fk_id_estado, fk_id_prioridad, fk_id_proyecto, fk_id_responsable, fk_id_supervisor } = req.body;
+
+        fecha_inicio = fecha_inicio === '' ? null : fecha_inicio;
+        fecha_final = fecha_final === '' ? null : fecha_final;
+        fecha_completado = fecha_completado === '' ? null : fecha_completado;
 
         const result = await pool.query(
-            `UPDATE ${nTabla} SET title = $1, description = $2 WHERE ${nId} = $3 RETURNING *`,
-            [title, description, id]
+            `UPDATE ${nTabla} 
+            SET nombre = $1, descripcion = $2, fecha_inicio = $3, fecha_final = $4, fecha_completado = $5, fk_id_tipo_tarea = $6, fk_id_estado = $7, fk_id_prioridad = $8, fk_id_proyecto = $9, fk_id_responsable = $10, fk_id_supervisor = $11 
+            WHERE ${nId} = $12 RETURNING *`,
+            [nombre, descripcion, fecha_inicio, fecha_final, fecha_completado, fk_id_tipo_tarea, fk_id_estado, fk_id_prioridad, fk_id_proyecto, fk_id_responsable, fk_id_supervisor, id]
         );
 
         if (result.rows.length === 0)
@@ -57,8 +72,8 @@ export const updateTask = async (req, res) => {
 
         return res.json(result.rows[0]);
     } catch (error) {
-        console.log(error)
-        return res.status(500).json({ message: "Something went wrong: "});
+        console.log(error);
+        return res.status(500).json({ message: "Something went wrong" });
     }
 };
 

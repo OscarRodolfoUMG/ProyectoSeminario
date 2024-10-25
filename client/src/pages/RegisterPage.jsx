@@ -1,14 +1,12 @@
 import { useForm } from 'react-hook-form';
-import { useAuth } from '../context/AuthContext';
 import { useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 
+import { useAuth } from '../context/AuthContext';
 
+//Componente de formulario para crear un usuario
 function RegisterPage() {
-    const { register,
-        handleSubmit,
-        formState: { errors }
-    } = useForm();
+    const { register, handleSubmit, formState: { errors } } = useForm();
     const { signup, isAuthenticated, errors: registerErrors } = useAuth();
     const navigate = useNavigate();
 
@@ -32,7 +30,7 @@ function RegisterPage() {
                 }
                 <h1 className='text-xl font-bold my-2'>Register</h1>
                 <form onSubmit={onSubmit}>
-                    
+
                     <input type="text" {...register("username", { required: true })}
                         className='w-full bg-zinc-700 text-white px-4 py-2 rounded-md my-2'
                         placeholder='Username' />
@@ -58,7 +56,7 @@ function RegisterPage() {
                         )
                     }
                     <button type="submit"
-                    className='bg-sky-500 text-white px-4 py-2 rounded-md my-2'>
+                        className='bg-sky-500 text-white px-4 py-2 rounded-md my-2'>
                         Register
                     </button>
                 </form>

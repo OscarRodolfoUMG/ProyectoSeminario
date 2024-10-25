@@ -12,11 +12,11 @@ router.post('/tasks', createTask);
 router.delete('/tasks/:id', deleteTask);
 router.put('/tasks/:id', updateTask);
 
+export default router;
+
 // router.get('/tasks', authRequired, getAllTask);
 // router.get('/tasks/:id', authRequired, getTask);
 // router.post('/tasks', authRequired, validateSchema(createTaskSchema), createTask);
 // router.delete('/tasks/:id', authRequired, deleteTask);
 // router.put('/tasks/:id', authRequired, updateTask);
 
-
-export default router;

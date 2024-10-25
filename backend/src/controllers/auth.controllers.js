@@ -7,7 +7,7 @@ import { pool } from '../db.js';
 export const register = async (req, res) => {
   const { nombre, email, pass, fk_tipo_usuario } = req.body;
   const llega  = req.body;
-  console.log("Llegando: ", llega);
+  
   try {
     const userFound = await pool.query('SELECT * FROM usuario WHERE email = $1', [email]);
     if (userFound.rows.length > 0) return res.status(400).json(["El email ya está en uso"]);
@@ -65,13 +65,14 @@ export const logout = (req, res) => {
 // Perfil de usuario autenticado
 export const profile = async (req, res) => {
   try {
-    const userFound = await pool.query('SELECT * FROM usuario WHERE id_usuario = $1', [req.user.payload.id]);
+    const { id } = req.params;
+    const userFound = await pool.query('SELECT * FROM usuario WHERE id_usuario = $1 RETURNING *', [id]);
 
     if (userFound.rows.length === 0) return res.status(400).json({ message: "Usuario no encontrado" });
 
     return res.json({
-      id: userFound.rows[0].id_usuario,
-      username: userFound.rows[0].nombre,
+      id_usuario: userFound.rows[0].id_usuario,
+      nombre: userFound.rows[0].nombre,
       email: userFound.rows[0].email,
     });
   } catch (error) {

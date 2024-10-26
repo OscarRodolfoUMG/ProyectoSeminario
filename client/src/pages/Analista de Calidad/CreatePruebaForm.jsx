@@ -124,7 +124,7 @@ function CreatePruebaForm() {
                 <label htmlFor="fk_id_tipo_prueba">Estado</label>
                 <select {...register('fk_id_tipo_prueba')} className='w-full bg-zinc-700 text-white px-4 py-2 rounded-md my-2'>
                     <option value="1">Prueba Unitaria</option>
-                    <option value="2">Prueba Fucional</option>
+                    <option value="2">Prueba Funcional</option>
                     <option value="3">Prueba de Integración</option>
                     <option value="4">Prueba de Regresión</option>
                 </select>

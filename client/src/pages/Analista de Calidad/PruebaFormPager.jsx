@@ -49,6 +49,10 @@ function PruebaFormPage() {
     return (
 
         <div className="ml-40">
+            <h1 className="text-3xl mb-5">Crear Prueba</h1>
+            {tasks.length === 0 && (
+                <h1 className="text-2xl mt-20">No hay Tareas</h1>
+            )}
             {filteredTasks.map((task) => {
                 const planPrueba = planPruebas.find(p => p.id_plan_prueba === parseInt(params.id));
                 return (

@@ -18,7 +18,6 @@ function ProyectsPage() {
 
             <h1 className="text-3xl ">Asignaciones</h1>
 
-
             {proyects.length === 0 && (
                 <h1 className="text-2xl mt-20">No Asignaciones</h1>
             )}

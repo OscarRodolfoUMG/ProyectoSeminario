@@ -19,6 +19,13 @@ function PlanPruebaFormPage2() {
         getPlanPruebas();
     }, []);
 
+    const formatDate = (date) => {
+        if (!date) {
+            return "No definida";
+        }
+        return new Date(date).toISOString().split('T')[0];
+    };
+
     useEffect(() => {
         if (params.id) {
             async function loadPlanPrueba() {

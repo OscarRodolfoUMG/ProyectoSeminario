@@ -57,7 +57,7 @@ function PlanPruebaCard({ planPrueba }) {
                     
                 </div>
             </header>
-            <p className="text-slate-300">Fecha Entrega: {formatDate(planPrueba.fecha_final)}</p>
+            <p className="text-slate-300">Fecha Entrega: {formatDate(planPrueba.fecha)}</p>
         </div>
     )
 }

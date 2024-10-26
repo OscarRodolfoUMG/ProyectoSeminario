@@ -24,7 +24,7 @@ function ProyectFormPage() {
         loadProyect();
     }, []);
 
-    const onSumbit = handleSubmit( async (data) => {
+    const onSumbit = handleSubmit(async (data) => {
         if (params.id) {
             await updateProyect(params.id, data);
         } else {
@@ -34,34 +34,36 @@ function ProyectFormPage() {
     });
 
     return (
-        <div className='bg-zinc-800 max-w-md w-full ml-40 p-10 rounded-md'>
-            <h1 className='text-2xl font-bold  text-center'>Nuevo Proyecto</h1>
-            <form onSubmit={onSumbit}>
-                <label htmlFor="nombre">Nombre</label>
-                <input
-                    type="text"
-                    placeholder="Nombre"
-                    {...register("nombre")}
-                    className='w-full bg-zinc-700 text-white px-4 py-2 rounded-md my-2'
-                    autoFocus
-                    required
-                    autoComplete='off'
-                />
+        <div className="ml-40">
+            <div className='bg-zinc-800 max-w-md w-full p-10 rounded-md'>
+                <h1 className='text-2xl font-bold  text-center'>Nuevo Proyecto</h1>
+                <form onSubmit={onSumbit}>
+                    <label htmlFor="nombre">Nombre</label>
+                    <input
+                        type="text"
+                        placeholder="Nombre"
+                        {...register("nombre")}
+                        className='w-full bg-zinc-700 text-white px-4 py-2 rounded-md my-2'
+                        autoFocus
+                        required
+                        autoComplete='off'
+                    />
 
-                <label htmlFor="fecha_inicio">Fecha Creación</label>
+                    <label htmlFor="fecha_inicio">Fecha Creación</label>
 
-                <input type="date" {...register('fecha_inicio')}
-                    className='w-full bg-zinc-700 text-white px-4 py-2 rounded-md my-2'
-                />
+                    <input type="date" {...register('fecha_inicio')}
+                        className='w-full bg-zinc-700 text-white px-4 py-2 rounded-md my-2'
+                    />
 
-                <label htmlFor="fecha_final">Fecha Entrega</label>
+                    <label htmlFor="fecha_final">Fecha Entrega</label>
 
-                <input type="date" {...register('fecha_final')}
-                    className='w-full bg-zinc-700 text-white px-4 py-2 rounded-md my-2'
-                />
+                    <input type="date" {...register('fecha_final')}
+                        className='w-full bg-zinc-700 text-white px-4 py-2 rounded-md my-2'
+                    />
 
-                <button className='bg-green-600 hover:bg-green-700 px-8 py-2 rounded-md mt-5'>Guardar</button>
-            </form>
+                    <button className='bg-green-600 hover:bg-green-700 px-8 py-2 rounded-md mt-5'>Guardar</button>
+                </form>
+            </div>
         </div>
     )
 }

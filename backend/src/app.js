@@ -3,6 +3,7 @@ import morgan from 'morgan';
 import cookieParser from 'cookie-parser';
 import cors from 'cors';
 
+//Rutas creadas
 import authRoutes from './routes/auth.routes.js';
 import taskRoutes from './routes/tasks.routes.js';
 import userRoutes from './routes/users.routes.js';
@@ -13,6 +14,7 @@ import pruebaRoutes from './routes/pueba.routes.js'
 import fallaRoutes from './routes/falla.routes.js'
 import consultasRoutes from './routes/consultas.routes.js'
 
+//Direccion en variables de entorno
 import { FRONTEND_URL } from './config.js';
 
 const app = express();
@@ -25,6 +27,7 @@ app.use(morgan('dev'));
 app.use(express.json());
 app.use(cookieParser());
 
+//Despliegue de las rutas
 app.use("/api", authRoutes);
 app.use("/api", taskRoutes);
 app.use("/api", userRoutes);

@@ -102,7 +102,13 @@ function Navbar() {
                                             Tareas
                                         </Link>
                                     </li>
-
+                                </div>
+                                <div className="mt-auto w-full">
+                                    <li className="self-center flex-1 mr-2 w-full">
+                                        <Link className="text-white py-4 hover:bg-black w-full h-full block text-center" to='/falla'>
+                                            Defectos
+                                        </Link>
+                                    </li>
                                 </div>
                             </>
                         )}

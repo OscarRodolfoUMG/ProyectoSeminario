@@ -65,15 +65,18 @@ function App() {
 
                             {/* Rutas para las que se necesita usuario y contraseña */}
                             <Route element={<ProtectedRoute />}>
+                              {/* Rutas de Tareas */}
                               <Route path="/tasks" element={<TasksPage />} />
                               <Route path="/add-task" element={<TaskFormPage />} />
                               <Route path="/tasks/:id" element={<TaskFormPage />} />
                               <Route path="/edit-tasks/:id" element={<EditTaskFormPage />} />
 
+                              {/* Rutas para Administrador */}
                               <Route path="/users" element={<UsersPage />} />
                               <Route path="/add-user" element={<UserFormPage />} />
                               <Route path="/users/:id" element={<UserFormPage />} />
-
+                              
+                              {/* Rutas para Gerente de Proyecto */}
                               <Route path="/proyects" element={<ProyectsPage />} />
                               <Route path="/add-proyect" element={<ProyectFormPage />} />
                               <Route path="/proyects/:id" element={<ProyectFormPage />} />
@@ -82,6 +85,7 @@ function App() {
                               <Route path="/add-asignaciones" element={<AsignacionFormPage />} />
                               <Route path="/asignaciones/:id" element={<AsignacionFormPage />} />
 
+                              {/* Rutas para Analista de Calidad */}
                               <Route path="/planPrueba" element={<PlanPruebasPage />} />
                               <Route path="/edit-planPrueba/:id" element={<PlanPruebasFormPager2 />} />
                               <Route path="/add-planPrueba" element={<PlanPruebasFormPager />} />
@@ -91,11 +95,11 @@ function App() {
                               <Route path="/add-prueba/:id" element={<PruebaFormPager />} />
                               <Route path="/create-prueba/:id/:plan" element={<CreatePruebaForm />} />
                               <Route path="/edit-prueba/:id" element={<EditPruebaForm />} />
-                              {/* <Route path="/prueba/:id" element={<PruebaFormPager />} /> */}
 
                               <Route path="/falla" element={<FallaPage />} />
                               <Route path="/create-falla/:id" element={<CreateFallaForm />} />
 
+                              {/* Ruta de Informes */}
                               <Route path="/informes" element={<InformesPage />} />
 
                             </Route>

@@ -8,7 +8,8 @@ import {
     cantidadTareasNoCompletadas, 
     cantidadTareasPendientes, 
     cantidadTareasPorProyecto, 
-    cantidadTareasCompletadasPorProyecto 
+    cantidadTareasCompletadasPorProyecto,
+    erroresPorProyecto
 } from "../api/consultas";
 
 //Contexto para los informes
@@ -106,6 +107,15 @@ export function ConsultasProvider({ children }) {
         }
     };
 
+    const obtenerErroresPorProyecto = async () => {
+        try {
+            const res = await erroresPorProyecto();
+            return res.data;
+        } catch (error) {
+            console.log("Error al obtener tareas pendientes:", error);
+        }
+    };
+
     return (
         <ConsultasContext.Provider
             value={{
@@ -118,7 +128,8 @@ export function ConsultasProvider({ children }) {
                 obtenerTareasNoCompletadas,
                 obtenerTareasPendientes,
                 obtenerTareasPorProyecto,
-                obtenerTareasCompletadasPorProyecto
+                obtenerTareasCompletadasPorProyecto,
+                obtenerErroresPorProyecto
             }}
         >
             {children}

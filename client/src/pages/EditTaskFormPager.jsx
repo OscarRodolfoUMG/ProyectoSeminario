@@ -24,41 +24,47 @@ function TaskFormPage() {
 
     useEffect(() => {
         async function fetchData() {
-            await getTask(params.id);
             await getUsers();
         }
         fetchData();
-    }, [params.id]);
+    }, []);
 
     useEffect(() => {
         async function loadTask() {
-            setValue('nombre', tasks[0].nombre);
-            setValue('descripcion', tasks[0].descripcion);
-            setValue('fecha_inicio', tasks[0].fecha_inicio);
-            setValue('fecha_final', tasks[0].fecha_final);
-            setValue('fecha_completado', tasks[0].fecha_completado);
-            setValue('fk_id_tipo_tarea', tasks[0].fk_id_tipo_tarea);
-            setValue('fk_id_estado', tasks[0].fk_id_estado);
-            setValue('fk_id_prioridad', tasks[0].fk_id_prioridad);
-            const user1 = users.find(u => u.id_usuario === tasks[0].fk_id_responsable);
-            if (user1) {
-                setDesarrollador(user1.nombre);
-            }
-            const user2 = users.find(u => u.id_usuario === tasks[0].fk_id_supervisor);
-            if (user2) {
-                setAnalista(user2.nombre);
+            if (params.id) {
+                const task = await getTask(params.id);
+                setValue('nombre', task.nombre);
+                setValue('descripcion', task.descripcion);
+                setValue('fecha_inicio', task.fecha_inicio);
+                setValue('fecha_final', task.fecha_final);
+                setValue('fecha_completado', task.fecha_completado);
+                setValue('fk_id_tipo_tarea', task.fk_id_tipo_tarea);
+                setValue('fk_id_estado', task.fk_id_estado);
+                setValue('fk_id_prioridad', task.fk_id_prioridad);
+                setValue('fk_id_proyecto', task.fk_id_proyecto);
+                setValue('fk_id_responsable', task.fk_id_responsable);
+                setValue('fk_id_supervisor', task.fk_id_supervisor);
+                const user1 = users.find(u => u.id_usuario === task.fk_id_responsable);
+                if (user1) {
+                    setDesarrollador(user1.nombre);
+                }
+                const user2 = users.find(u => u.id_usuario === task.fk_id_supervisor);
+                if (user2) {
+                    setAnalista(user2.nombre);
+                }
             }
         }
         loadTask();
-    }, [tasks, users]);
+    }, [tasks]);
+
+    console.log("ask, ", tasks)
 
     const onSumbit = handleSubmit(async (values) => {
         if (params.id) {
-            updateTask(params.id, values);
+            await updateTask(params.id, values);
         }
         navigate('/tasks');
     });
-
 
     return (
 
@@ -66,19 +72,22 @@ function TaskFormPage() {
             <h1 className='text-2xl font-bold mb-5 text-center'>Proyecto: {proyectName}</h1>
             <form onSubmit={onSumbit}>
                 {/* id_proyecto */}
-                <input value={tasks[0].fk_id_proyecto}
+                <label type="hidden" htmlFor="fk_id_proyecto"></label>
+                <input
                     type="hidden"
-                    {...register('fk_id_proyecto')} 
+                    {...register('fk_id_proyecto')}
                 />
                 {/* id_proyecto */}
-                <input value={tasks[0].fk_id_responsable}
+                <label type="hidden" htmlFor="fk_id_responsable"></label>
+                <input
                     type="hidden"
-                    {...register('fk_id_responsable')} 
+                    {...register('fk_id_responsable')}
                 />
                 {/* id_proyecto */}
-                <input value={tasks[0].fk_id_supervisor}
+                <label type="hidden" htmlFor="fk_id_supervisor"></label>
+                <input 
                     type="hidden"
-                    {...register('fk_id_supervisor')} 
+                    {...register('fk_id_supervisor')}
                 />
                 {/* NOMBRE */}
                 <label htmlFor="nombre">Nombre</label>
@@ -164,7 +173,7 @@ function TaskFormPage() {
                     value={analista}
 
                 />
-                
+
                 <button type="submit"
                     className='bg-zinc-800  border-2 border-green-700  text-white px-8 py-2 mt-5 rounded-md my-2 relative overflow-hidden group transition-all duration-300'>
                     <span className="relative z-10 font-bold">Guardar</span>

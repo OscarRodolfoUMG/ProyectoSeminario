@@ -9,3 +9,4 @@ export const cantidadTareasNoCompletadas = () => axios.get('/consulta6');
 export const cantidadTareasPendientes = () => axios.get('/consulta7');
 export const cantidadTareasPorProyecto = (id) => axios.get(`/consulta8/${id}`);
 export const cantidadTareasCompletadasPorProyecto = (id) => axios.get(`/consulta9/${id}`);
+export const erroresPorProyecto = () => axios.get('/consulta10');

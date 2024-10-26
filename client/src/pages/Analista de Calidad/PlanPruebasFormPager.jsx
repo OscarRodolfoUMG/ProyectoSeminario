@@ -32,6 +32,7 @@ function PlanPruebaFormPage() {
     return (
 
         <div className="ml-40">
+            <h1 className="text-2xl">Nuevo Plan Pruebas</h1>
             {proyects.length === 0 && (
                 <h1 className="text-2xl mt-20">No Proyects</h1>
             )}

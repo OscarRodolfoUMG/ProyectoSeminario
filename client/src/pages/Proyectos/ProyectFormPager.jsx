@@ -24,11 +24,11 @@ function ProyectFormPage() {
         loadProyect();
     }, []);
 
-    const onSumbit = handleSubmit((data) => {
+    const onSumbit = handleSubmit( async (data) => {
         if (params.id) {
-            updateProyect(params.id, data);
+            await updateProyect(params.id, data);
         } else {
-            createProyect(data);
+            await createProyect(data);
         }
         navigate('/proyects');
     });

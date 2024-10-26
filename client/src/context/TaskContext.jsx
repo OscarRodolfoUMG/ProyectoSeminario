@@ -51,6 +51,7 @@ export function TaskProvider({ children }) {
     const getTask = async(id) => {
         try {
             const res = await getTaskRequest(id);
+
             const task = res.data;
 
             task.fecha_inicio = formatDate(task.fecha_inicio);

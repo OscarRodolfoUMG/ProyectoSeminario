@@ -37,7 +37,7 @@ function AsignacionItem({ user_proyect }) {
                     className='bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-md'
                     onClick={() => {
                         handleDelete(user_proyect.fk_id_usuario);
-                    }}>Delete</button>
+                    }}>Remover</button>
 
                     
                 </div>

@@ -3,14 +3,17 @@ import { useConsultas } from "../../context/consultasContext";
 
 //Componente para cargar los resultador de las consultas
 function ConsultasPage() {
-    const { 
-        obtenerCantidadDesarrolladores, 
-        obtenerCantidadAnalistas, 
-        obtenerCantidadProyectos, 
-        obtenerCantidadPruebas, 
-        obtenerTareasCompletadas, 
-        obtenerTareasNoCompletadas, 
-        obtenerTareasPendientes 
+    //Establecer constantes que recibiran las consultas
+    const [erroresPorProyecto, setErroresPorProyecto] = useState({});
+    const {
+        obtenerCantidadDesarrolladores,
+        obtenerCantidadAnalistas,
+        obtenerCantidadProyectos,
+        obtenerCantidadPruebas,
+        obtenerTareasCompletadas,
+        obtenerTareasNoCompletadas,
+        obtenerTareasPendientes,
+        obtenerErroresPorProyecto
     } = useConsultas();
 
     const [consultas, setConsultas] = useState({
@@ -23,6 +26,7 @@ function ConsultasPage() {
         tareasPendientes: 0
     });
 
+    //Realiza las paticiones de las consultas
     useEffect(() => {
         const obtenerDatos = async () => {
             try {
@@ -34,6 +38,7 @@ function ConsultasPage() {
                 const incompleteTasks = await obtenerTareasNoCompletadas();
                 const pendingTasks = await obtenerTareasPendientes();
 
+                //Insertar los resultados de las consultas para los cuadros
                 setConsultas({
                     desarrolladores: devs?.cantidadDesarrolladores || 0,
                     analistas: analysts?.cantidadAnalistas || 0,
@@ -43,6 +48,9 @@ function ConsultasPage() {
                     tareasNoCompletadas: incompleteTasks?.cantidadTareasNoCompletadas || 0,
                     tareasPendientes: pendingTasks?.cantidadTareasPendientes || 0
                 });
+                //Listado de errores
+                const errores = await obtenerErroresPorProyecto();
+                setErroresPorProyecto(errores);
             } catch (error) {
                 console.log("Error al obtener estadísticas:", error);
             }
@@ -50,12 +58,12 @@ function ConsultasPage() {
 
         obtenerDatos();
     }, [
-        obtenerCantidadDesarrolladores, 
-        obtenerCantidadAnalistas, 
-        obtenerCantidadProyectos, 
-        obtenerCantidadPruebas, 
-        obtenerTareasCompletadas, 
-        obtenerTareasNoCompletadas, 
+        obtenerCantidadDesarrolladores,
+        obtenerCantidadAnalistas,
+        obtenerCantidadProyectos,
+        obtenerCantidadPruebas,
+        obtenerTareasCompletadas,
+        obtenerTareasNoCompletadas,
         obtenerTareasPendientes
     ]);
 
@@ -104,6 +112,27 @@ function ConsultasPage() {
                     <h2 className="text-xl font-semibold">Tareas Pendientes</h2>
                     <p className="text-3xl mt-2">{consultas.tareasPendientes}</p>
                 </div>
+            </div>
+
+            {/* Sección de Errores por Proyecto */}
+            <div className="mt-8">
+                <h2 className="text-4xl font-bold mb-4">Errores por Proyecto</h2>
+                {Object.keys(erroresPorProyecto).length > 0 ? (
+                    Object.keys(erroresPorProyecto).map((proyecto) => (
+                        <div key={proyecto} className="bg-gray-700 p-4 rounded-md mb-4 shadow-md">
+                            <h3 className="text-xl font-semibold">{proyecto}</h3>
+                            <ul className="list-disc list-inside ml-4 mt-2">
+                                {erroresPorProyecto[proyecto].map((error, index) => (
+                                    <li key={index}>
+                                        <span className="font-semibold">{error.tipoerror}:</span> {error.error}
+                                    </li>
+                                ))}
+                            </ul>
+                        </div>
+                    ))
+                ) : (
+                    <p className="text-gray-400">No se encontraron errores para los proyectos.</p>
+                )}
             </div>
         </div>
     );

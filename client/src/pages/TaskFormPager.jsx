@@ -58,8 +58,8 @@ function TaskFormPage() {
         }
     }, [user_proyects, users, params.id]);
 
-    const onSumbit = handleSubmit((data) => {
-        createTask(data);
+    const onSumbit = handleSubmit( async (data) => {
+        await createTask(data);
         navigate('/tasks');
     });
 

@@ -8,7 +8,8 @@ import {
     contarTareasNoCompletadas, 
     contarTareasPendientes, 
     contarTareasPorProyecto, 
-    contarTareasCompletadasPorProyecto 
+    contarTareasCompletadasPorProyecto,
+    obtenerErroresPorProyecto
 } from '../controllers/consultas.controllers.js';
 
 const router = Router();
@@ -22,5 +23,6 @@ router.get('/consulta6', contarTareasNoCompletadas);
 router.get('/consulta7', contarTareasPendientes); 
 router.get('/consulta8/:id', contarTareasPorProyecto); 
 router.get('/consulta9/:id', contarTareasCompletadasPorProyecto); 
+router.get('/consulta10', obtenerErroresPorProyecto); 
 
 export default router;

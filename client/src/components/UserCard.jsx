@@ -24,11 +24,11 @@ function UserCard({ user }) {
                     className='bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-md'
                     onClick={() => {
                         handleDelete(user.id_usuario);
-                    }}>Delete</button>
+                    }}>Eliminar</button>
 
                     <Link to={`/users/${user.id_usuario}`}
                     className='bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-md'
-                    >Edit</Link>
+                    >Editar</Link>
                     
                 </div>
             </header>

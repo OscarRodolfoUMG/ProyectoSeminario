@@ -8,6 +8,7 @@ Sistema de gestión para proyectos de desarrollo de software.
 - Node.js
 - PostgreSQL
 - Render Server
+- Tailwind
 
 ## Capturas de Pantalla
 
